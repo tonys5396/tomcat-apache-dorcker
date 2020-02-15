@@ -1,0 +1,20 @@
+FROM centos:centos6.10
+
+LABEL maintainer=tonyss5396@gamil.com
+
+RUN yum install -y wget
+RUN useradd 7thonline && \
+    usermod --password 7thonline 7thonline && \
+    mkdir -p /usr/local/7thonline && \
+    chown -R 7thonline /usr/local/7thonline && \
+    chmod -R 775 /usr/local/7thonline && \
+    cd /usr/local/7thonline && \
+    wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.12/bin/apache-tomcat-8.5.12.tar.gz && \
+    tar zxvf apache-tomcat-8.5.12.tar.gz && \
+    wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz" && \
+    tar zxvf jdk-8u45-linux-x64.tar.gz && \
+
+ENV JAVA_HOME=jdk-8u45-linux-x64 && \
+    PATH=$PATH:jdk-8u45-linux-x64/bin
+
+RUN cd /usr/local/7thonline/apache-tomcat-8.5.12/conf
